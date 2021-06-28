@@ -17,7 +17,7 @@ jobs:
       - name: Github REST API 
         env:
           PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          PARENT_REPO: autifyhq/for-mobile-ci-integration-samples
+          PARENT_REPO: autifyhq/for-mobile-ci-integration-example
           PARENT_BRANCH: main
           # curl https://api.github.com/repos/autifyhq/for-mobile-ci-integration-samples/actions/workflows/update-submodule.yml
           WORKFLOW_ID: 10802447
