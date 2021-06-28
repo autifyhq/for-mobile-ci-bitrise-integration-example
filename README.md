@@ -1,2 +1,2 @@
-# for-mobile-bitrise-integration-samples
+# bitrise-integration-sample
 
