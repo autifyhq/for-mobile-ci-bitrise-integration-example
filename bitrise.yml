@@ -37,20 +37,7 @@ workflows:
     - activate-ssh-key@4:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@6: {}
-    - cache-pull@2: {}
-    - script@1:
-        title: Do anything with Script step
-    - certificate-and-profile-installer@1: {}
-    - recreate-user-schemes@1:
-        inputs:
-        - project_path: $BITRISE_PROJECT_PATH
-    - cocoapods-install@2: {}
-    - xcode-test@2:
-        inputs:
-        - project_path: $BITRISE_PROJECT_PATH
-        - scheme: $BITRISE_SCHEME
-    - deploy-to-bitrise-io@1: {}
-    - cache-push@2: {}
+    - xcode-build-for-simulator@0: {}
 app:
   envs:
   - opts:
