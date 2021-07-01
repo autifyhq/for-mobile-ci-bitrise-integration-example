@@ -3,6 +3,10 @@
 
 # bitrise-integration-example [![Build Status][bitrise Badge]][bitrise URL]
 
+<p>
+<img src="https://github.com/autifyhq/for-mobile-ci-bitrise-integration-example/blob/main/.github/assets/bitrise-workflow.png?raw=true"/>
+</p>
+
 ## License
 
 bitrise-step-autify-upload © [Autify Engineers](https://github.com/autifyhq). Released under the [MIT License](LICENSE).<br/>
