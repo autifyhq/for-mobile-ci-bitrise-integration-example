@@ -1,0 +1,100 @@
+---
+format_version: '11'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: ios
+trigger_map:
+- push_branch: "*"
+  workflow: primary
+- pull_request_source_branch: "*"
+  workflow: primary
+workflows:
+  deploy:
+    steps:
+    - activate-ssh-key@4:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@6: {}
+    - cache-pull@2: {}
+    - script@1:
+        title: Do anything with Script step
+    - certificate-and-profile-installer@1: {}
+    - recreate-user-schemes@1:
+        inputs:
+        - project_path: "$BITRISE_PROJECT_PATH"
+    - cocoapods-install@2: {}
+    - xcode-test@2:
+        inputs:
+        - project_path: "$BITRISE_PROJECT_PATH"
+        - scheme: "$BITRISE_SCHEME"
+    - xcode-archive@3:
+        inputs:
+        - project_path: "$BITRISE_PROJECT_PATH"
+        - scheme: "$BITRISE_SCHEME"
+        - export_method: "$BITRISE_EXPORT_METHOD"
+    - deploy-to-bitrise-io@1: {}
+    - cache-push@2: {}
+  primary:
+    steps:
+    - activate-ssh-key@4:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@6: {}
+
+    #
+    # Build a new build file for iOS Simulator
+    #
+    - xcode-build-for-simulator@0: {}
+
+    # 
+    # Upload the build file
+    #
+    # Params:
+    # - $AUTIFY_TOKEN ... Personal Access Token created on Autify. It is added as Secret Env Var on Bitrise.
+    # 
+    # Output:
+    # - $AUTIFY_UPLOAD_STEP_RESULT_JSON
+    # 
+    - autify-upload@0:
+        inputs:
+        - project_id: "$AUTIFY_PROJECT_ID"
+        - upload_token: "$AUTIFY_TOKEN"
+
+    #
+    # Run the TestPlan with the build file and log TestPlanResult URL on Autify.
+    #
+    #
+    # Params:
+    # - $AUTIFY_TEST_PLAN_ID ... Test Plan ID on Autify.
+    # - $AUTIFY_PROJECT_ID   ... Project ID on Autify.
+    #
+    - script@1:
+        inputs:
+        - content: |
+            #!/usr/bin/env bash
+            set -ex
+
+            generate_post_data() {
+              cat << EOF
+            {
+              "build_id": "$build_id"
+            }
+            EOF
+            }
+
+            build_id=$(echo $AUTIFY_UPLOAD_STEP_RESULT_JSON | jq -r .id)
+            echo -e "\033[00;32m *  $build_id  \033[0m"
+
+            response=$(curl -X POST \
+                -H "Authorization: Bearer ${AUTIFY_TOKEN}" \
+                -H "Content-Type: application/json" \
+                --data "$(generate_post_data)" \
+                "https://mobile-app.autify.com/api/v1/test_plans/${AUTIFY_TEST_PLAN_ID}/test_plan_results")
+
+            test_plan_result_id=$(echo "${response}" | jq -r .id)
+            echo -e "\033[00;32m * https://mobile-app.autify.com/projects/${AUTIFY_PROJECT_ID}/results/${test_plan_result_id} \033[0m"
+app:
+  envs:
+  - opts:
+      is_expand: false
+    BITRISE_PROJECT_PATH: hello-world.xcodeproj
+  - opts:
+      is_expand: false
+    BITRISE_SCHEME: hello-world
