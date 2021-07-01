@@ -1,7 +1,7 @@
 [bitrise Badge]: https://app.bitrise.io/app/b2246b41a0cbce40/status.svg?token=BeHgX5a3U28aJGDfNZWHxg
 [bitrise URL]:   https://app.bitrise.io/app/b2246b41a0cbce40
 
-# bitrise-integration-example [![Build Status][bitrise Badge]][bitrise URL]
+# Autify for Mobile, CI integration example for [Bitrise](https://www.bitrise.io/) [![Build Status][bitrise Badge]][bitrise URL]
 
 <p>
 <img src="https://github.com/autifyhq/for-mobile-ci-bitrise-integration-example/blob/main/.github/assets/bitrise-workflow.png?raw=true"/>
