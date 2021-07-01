@@ -1,8 +1,6 @@
 [bitrise Badge]: https://app.bitrise.io/app/b2246b41a0cbce40/status.svg?token=BeHgX5a3U28aJGDfNZWHxg
 [bitrise URL]:   https://app.bitrise.io/app/b2246b41a0cbce40
 
-<p align="center">Other languages: <a href="README-ja.md">日本語</a></p>
-
 # Autify for Mobile, [Bitrise](https://www.bitrise.io/) integration example [![Build Status][bitrise Badge]][bitrise URL]
 
 > Learn best practices for Bitrise integration
