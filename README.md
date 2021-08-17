@@ -7,8 +7,7 @@
 
 ## Best practice
 
-By running in regression testing prior to release, you can release new features more safely and confidently.You can automate that process by running an Autify for Mobile regression test automatically when the features are merged into the master/develop branch.
-
+By running in regression testing prior to release, you can release new features more safely and confidently. You can automate that process by running an Autify for Mobile regression test automatically when the features are merged into the master/develop branch.
 
 ## Workflow
 <p>
@@ -18,4 +17,4 @@ By running in regression testing prior to release, you can release new features 
 ## License
 
 for-mobile-ci-bitrise-integration-example © [Autify Engineers](https://github.com/autifyhq). Released under the [MIT License](LICENSE).<br/>
-Authored and maintained by [Autify Engineers](https://github.com/autifyhq) with help from [contributors](https://github.com/autifyhq/for-mobile-ci-bitrise-integration-example/graphs/contributors)
+Authored and maintained by [Autify Engineers](https://github.com/autifyhq) with help from [contributors](https://github.com/autifyhq/for-mobile-ci-bitrise-integration-example/graphs/contributors).
